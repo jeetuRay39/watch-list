@@ -25,3 +25,13 @@ class MovieListAPIView(APIView):
         serializer = MovieSerializer(movies, many=True)
         # many = Ture because we are serializing multiple objects
         return Response(serializer.data)
+
+    def post(self, request):
+        serializer = MovieSerializer(data=request.data)
+        #serializing the incoming json data
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+        return Response(serializer.errors, status=status.HTTP_404_BAD_REQUEST)
+
