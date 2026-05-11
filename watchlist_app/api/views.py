@@ -35,3 +35,26 @@ class MovieListAPIView(APIView):
         
         return Response(serializer.errors, status=status.HTTP_404_BAD_REQUEST)
 
+class MovieDetailAPIView(APIView):
+
+    def get(self, request, pk):
+        #queryset for getting the specific object
+        movie = Movie.objects.get(pk=pk)
+        serializer = MovieSerializer(movie)
+        return Response(serializer.data)
+    
+    def put(self, request, pk):
+        movie = Movie.objects.get(pk=pk)
+        serializer = MovieSerializer(movie, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+
+    def delete(self, request, pk):
+        movie = Movie.objects.get(pk=pk)
+        movie.delete()
+        return Response({'message':'deleted'})
+
+
+
+
