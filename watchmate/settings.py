@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'watchlist_app',
     'rest_framework',
     'booking',
+    'hotels',
 ]
 
 MIDDLEWARE = [

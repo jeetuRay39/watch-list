@@ -1,6 +1,8 @@
 from django.db import models
+from hotels.models import Hotels
 
 class Booking(models.Model):
+    hotel = models.ForeignKey(Hotels, on_delete=models.CASCADE)
     guest_name = models.CharField(max_length=100)
     email = models.EmailField()
     room_number = models.IntegerField()
